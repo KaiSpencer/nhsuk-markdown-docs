@@ -1,15 +1,11 @@
 import Link from "next/link";
-import type { Folder, Meta, PageMapItem, PageOpts } from "nextra";
+import type { Folder, PageMapItem, PageOpts } from "nextra";
 
 export function pageTitlesFromPageMapItems(
   pageMapItems: PageMapItem[]
 ): Record<string, unknown> {
   for (const pageMapItem of pageMapItems) {
     if (pageMapItem.kind === "Meta") {
-      // TODO Handle more complex meta objects
-      if (typeof pageMapItem.data === "object") {
-        return {};
-      }
       return pageMapItem.data;
     }
   }
