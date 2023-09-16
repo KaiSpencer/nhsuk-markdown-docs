@@ -4,13 +4,52 @@ import type { HTMLProps } from "react";
 import type { NextraThemeLayoutProps, PageOpts } from "nextra";
 import { SideNav } from "./sidenav";
 
+const components = {
+  pre: (
+    props: HTMLProps<HTMLPreElement> & {
+      filename?: string;
+    }
+  ) => {
+    return (
+      <pre
+        style={{
+          border: "1px solid #ddd",
+          background: "white",
+        }}
+      >
+        {props.filename ? (
+          <div
+            style={{
+              paddingLeft: "24px",
+              paddingTop: "4px",
+              paddingBottom: "4px",
+              borderBottom: "1px solid #ddd",
+            }}
+          >
+            {props.filename}
+          </div>
+        ) : null}
+        <div
+          style={{
+            background: "white",
+            padding: "24px",
+            position: "relative",
+          }}
+        >
+          {props.children}
+        </div>
+      </pre>
+    );
+  },
+};
+
 function Layout({
   pageOpts,
   children,
 }: {
   pageOpts: PageOpts;
   children: React.ReactNode;
-}) {
+}): JSX.Element {
   return (
     <>
       <Head>
@@ -57,6 +96,7 @@ function Layout({
                   aria-expanded="false"
                   className="nhsuk-header__menu-toggle"
                   id="toggle-menu"
+                  type="button"
                 >
                   Menu
                 </button>
@@ -77,6 +117,7 @@ function Layout({
                 <button
                   className="nhsuk-header__navigation-close"
                   id="close-menu"
+                  type="button"
                 >
                   <svg
                     aria-hidden="true"
@@ -177,49 +218,7 @@ function Layout({
                   <div className="app-pane__side-bar">
                     <SideNav pageOpts={pageOpts} />
                   </div>
-                  <MDXProvider
-                    components={{
-                      pre: (
-                        props: HTMLProps<HTMLPreElement> & {
-                          filename?: string;
-                        }
-                      ) => {
-                        return (
-                          <pre
-                            style={{
-                              border: "1px solid #ddd",
-                              background: "white",
-                            }}
-                          >
-                            {props.filename ? (
-                              <div
-                                style={{
-                                  paddingLeft: "24px",
-                                  paddingTop: "4px",
-                                  paddingBottom: "4px",
-                                  borderBottom: "1px solid #ddd",
-                                }}
-                              >
-                                {props.filename}
-                              </div>
-                            ) : null}
-                            <div
-                              style={{
-                                background: "white",
-                                padding: "24px",
-                                position: "relative",
-                              }}
-                            >
-                              {props.children}
-                            </div>
-                          </pre>
-                        );
-                      },
-                      code: (props) => {
-                        return <code {...props} />;
-                      },
-                    }}
-                  >
+                  <MDXProvider components={components}>
                     <div className="app-pane__main-content">
                       <div>{children}</div>
                     </div>
@@ -232,35 +231,7 @@ function Layout({
         <footer role="contentinfo">
           <div className="nhsuk-footer" id="nhsuk-footer">
             <div className="nhsuk-width-container">
-              <h2 className="nhsuk-u-visually-hidden">Support links</h2>
-              <ul className="nhsuk-footer__list">
-                <li className="nhsuk-footer__list-item">
-                  <a className="nhsuk-footer__list-item-link" href="#">
-                    Accessibility statement
-                  </a>
-                </li>
-                <li className="nhsuk-footer__list-item">
-                  <a className="nhsuk-footer__list-item-link" href="#">
-                    Contact us
-                  </a>
-                </li>
-                <li className="nhsuk-footer__list-item">
-                  <a className="nhsuk-footer__list-item-link" href="#">
-                    Cookies
-                  </a>
-                </li>
-                <li className="nhsuk-footer__list-item">
-                  <a className="nhsuk-footer__list-item-link" href="#">
-                    Privacy policy
-                  </a>
-                </li>
-                <li className="nhsuk-footer__list-item">
-                  <a className="nhsuk-footer__list-item-link" href="#">
-                    Terms and conditions
-                  </a>
-                </li>
-              </ul>
-
+              Powered by: NHSUK Markdown Docs
               <p className="nhsuk-footer__copyright">&copy; Crown copyright</p>
             </div>
           </div>
@@ -273,8 +244,6 @@ function Layout({
 export function NextraThemeNhsuk({
   pageOpts,
   children,
-  themeConfig,
-  pageProps,
-}: NextraThemeLayoutProps) {
+}: NextraThemeLayoutProps): JSX.Element {
   return <Layout pageOpts={pageOpts}>{children}</Layout>;
 }
