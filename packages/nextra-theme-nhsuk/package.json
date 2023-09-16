@@ -6,7 +6,7 @@
   "types": "./index.tsx",
   "scripts": {
     "build": "echo 'Add build script here'",
-    "test": "echo 'Add test script here'",
+    "test": "bun test",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -18,7 +18,8 @@
     "react": "^18.2.0",
     "nextra": "2.12.3",
     "next": "13.4.19",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "bun-types": "^1.0.2"
   },
   "peerDependencies": {
     "next": ">=9.5.3",
