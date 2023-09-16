@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/react": "^2.2.1",
@@ -25,6 +26,7 @@
     "@types/react": "^18.2.7",
     "bun-types": "^1.0.1",
     "prettier": "^3.0.3",
+    "@next/eslint-plugin-next": "13.4.19",
     "typescript": "^5.0.4"
   }
 }

@@ -1,7 +1,9 @@
 import Link from "next/link";
-import type { Folder, Meta, PageMapItem, PageOpts } from "nextra";
+import type { Folder, PageMapItem, PageOpts } from "nextra";
 
-export function pageTitlesFromPageMapItems(pageMapItems: PageMapItem[]): Meta {
+export function pageTitlesFromPageMapItems(
+  pageMapItems: PageMapItem[]
+): Record<string, unknown> {
   for (const pageMapItem of pageMapItems) {
     if (pageMapItem.kind === "Meta") {
       return pageMapItem.data;
@@ -13,19 +15,17 @@ export function pageTitlesFromPageMapItems(pageMapItems: PageMapItem[]): Meta {
 function RenderFolder({
   currentRoute,
   name,
-  route,
-  children,
+  folderChildren,
 }: {
   currentRoute: string;
   name: string;
-  route: string;
-  children: Folder["children"];
-}) {
+  folderChildren: Folder["children"];
+}): JSX.Element {
   return (
     <div>
       <h2 className="app-side-nav__heading">{name}</h2>
-      {children.map((child) => {
-        const childTitles = pageTitlesFromPageMapItems(children);
+      {folderChildren.map((child) => {
+        const childTitles = pageTitlesFromPageMapItems(folderChildren);
         if (child.kind === "MdxPage") {
           if (child.name === "index") return null;
           return (
@@ -40,20 +40,20 @@ function RenderFolder({
               <Link className="app-side-nav__link" href={child.route}>
                 {typeof childTitles[child.name] === "string"
                   ? (childTitles[child.name] as string)
-                  : child.name ?? child.name}
+                  : child.name}
               </Link>
             </div>
           );
         }
+        return null;
       })}
     </div>
   );
 }
 
-export function SideNav({ pageOpts }: { pageOpts: PageOpts }) {
+export function SideNav({ pageOpts }: { pageOpts: PageOpts }): JSX.Element {
   const pageTitles = pageTitlesFromPageMapItems(pageOpts.pageMap);
 
-  console.log("LOG: pageOpts", pageOpts);
   return (
     <nav className="app-side-nav">
       {pageOpts.pageMap.map((page) => {
@@ -61,15 +61,14 @@ export function SideNav({ pageOpts }: { pageOpts: PageOpts }) {
           if (pageOpts.route.includes(page.route)) {
             return (
               <RenderFolder
-                children={page.children}
                 currentRoute={pageOpts.route}
+                folderChildren={page.children}
                 key={page.route.toString()}
                 name={
                   typeof pageTitles[page.name] === "string"
                     ? (pageTitles[page.name] as string)
-                    : page.name ?? page.name
+                    : page.name
                 }
-                route={page.route}
               />
             );
           }
