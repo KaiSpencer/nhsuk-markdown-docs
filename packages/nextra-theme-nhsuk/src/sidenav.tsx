@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Folder, PageMapItem, PageOpts } from "nextra";
+import type { Folder, Meta, PageMapItem, PageOpts } from "nextra";
 
 export function pageTitlesFromPageMapItems(
   pageMapItems: PageMapItem[]
