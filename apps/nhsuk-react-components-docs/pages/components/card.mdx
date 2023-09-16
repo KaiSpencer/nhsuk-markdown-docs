@@ -1,0 +1,37 @@
+import { getSourceCodeStaticProps, SourceCode } from "../../utils/source-code";
+import { CardStandard } from "../../snippets/card/standard";
+import { CardClickable } from "../../snippets/card/clickable";
+import { CardImage } from "../../snippets/card/image";
+import { CardFeature } from "../../snippets/card/feature";
+import { CardGroup } from "../../snippets/card/group";
+
+export const getStaticProps = () =>
+  getSourceCodeStaticProps([
+    "card/standard.tsx",
+    "card/clickable.tsx",
+    "card/image.tsx",
+    "card/feature.tsx",
+    "card/group.tsx",
+  ]);
+
+# Card
+
+## Standard
+
+<SourceCode component={<CardStandard />} fileName="card/standard.tsx" />
+
+## Clickable
+
+<SourceCode component={<CardClickable />} fileName="card/clickable.tsx" />
+
+## With Image
+
+<SourceCode component={<CardImage />} fileName="card/image.tsx" />
+
+## Feature
+
+<SourceCode component={<CardFeature />} fileName="card/feature.tsx" />
+
+## Group
+
+<SourceCode component={<CardGroup />} fileName="card/group.tsx" />

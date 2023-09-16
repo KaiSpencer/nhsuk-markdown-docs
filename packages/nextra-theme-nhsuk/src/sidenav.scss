@@ -1,0 +1,489 @@
+@import "../../../node_modules/nhsuk-frontend/packages/nhsuk";
+// @import "node_modules/nhsuk-frontend/packages/nhsuk"; When move to separate repo swap these two lines
+
+:root {
+  --shiki-color-text: #414141;
+  --shiki-color-background: transparent;
+  --shiki-token-constant: #1976d2;
+  --shiki-token-string: #22863a;
+  --shiki-token-comment: #aaa;
+  --shiki-token-keyword: #d32f2f;
+  --shiki-token-parameter: #ff9800;
+  --shiki-token-function: #6f42c1;
+  --shiki-token-string-expression: #22863a;
+  --shiki-token-punctuation: #212121;
+  --shiki-token-link: #22863a;
+}
+
+.dark {
+  --shiki-color-text: #d1d1d1;
+  --shiki-token-constant: #79b8ff;
+  --shiki-token-string: #ffab70;
+  --shiki-token-comment: #6b737c;
+  --shiki-token-keyword: #f97583;
+  --shiki-token-parameter: #ff9800;
+  --shiki-token-function: #b392f0;
+  --shiki-token-string-expression: #4bb74a;
+  --shiki-token-punctuation: #bbb;
+  --shiki-token-link: #ffab70;
+}
+
+/* ==========================================================================
+   #SIDE-NAV
+   ========================================================================== */
+
+.app-side-nav__heading {
+  @include nhsuk-font(19, $line-height: 1.25, $weight: bold);
+  color: $nhsuk-secondary-text-color;
+  margin-bottom: 0px;
+  padding-top: 4px;
+
+  @include mq($until: desktop) {
+    @include nhsuk-font(24, $line-height: 1.25, $weight: bold);
+    color: $nhsuk-text-color;
+  }
+}
+
+.app-side-nav__sub-heading {
+  @include nhsuk-font(16, $line-height: 1.25, $weight: bold);
+  color: $nhsuk-secondary-text-color;
+  margin-bottom: 12px;
+  padding-top: 0px;
+
+  @include mq($until: desktop) {
+    @include nhsuk-font(24, $line-height: 1.25, $weight: bold);
+    color: $nhsuk-text-color;
+  }
+}
+
+.app-side-nav__back {
+  border-bottom: 1px solid $nhsuk-border-color;
+  padding-bottom: nhsuk-spacing(3);
+}
+
+.app-side-nav__list {
+  @include nhsuk-font(16, $line-height: 1.3);
+  margin-bottom: 0;
+
+  @include mq($until: desktop) {
+    @include nhsuk-font(19, $line-height: 1.3);
+    margin-bottom: nhsuk-spacing(2);
+  }
+}
+
+.app-side-nav__item {
+  padding-bottom: 4px;
+  padding-top: 4px;
+}
+
+.app-side-nav__item--current {
+  border-left: 4px solid $color_nhsuk-blue;
+  margin-left: -12px;
+  padding-left: 8px;
+
+  .app-side-nav__link {
+    font-weight: $nhsuk-font-bold;
+  }
+}
+
+.app-side-nav__link {
+  text-decoration: none;
+
+  @include mq($until: desktop) {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: $color_nhsuk-blue;
+  }
+
+  &:hover {
+    color: $nhsuk-link-hover-color;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    &:hover,
+    &:visited {
+      color: $nhsuk-focus-text-color;
+    }
+  }
+}
+
+.app-side-nav__list--nested {
+  @include nhsuk-responsive-margin(2, "bottom");
+  @include nhsuk-responsive-margin(3, "top");
+
+  .app-side-nav__item {
+    @include nhsuk-font(16, $line-height: 1.3);
+    list-style: none;
+  }
+
+  .app-side-nav__link {
+    font-weight: 400;
+  }
+}
+
+.app-side-nav__list--nested .app-side-nav__item::before {
+  color: $color_nhsuk-grey-3;
+  content: "—";
+  margin-left: -20px;
+  margin-right: 4px;
+}
+
+.app-index-navigation {
+  @include nhsuk-responsive-padding(4, "top");
+}
+
+.app-pane {
+  display: -webkit-box;
+  display: -ms-flexbox; // sass-lint:disable-line no-duplicate-properties
+  display: flex; // sass-lint:disable-line no-duplicate-properties
+  min-height: 0;
+  overflow: inherit;
+  position: relative;
+}
+
+.app-pane__side-bar {
+  -ms-flex: 0 0 auto;
+  -webkit-box-flex: 0;
+  flex: 0 0 auto;
+  width: 220px;
+
+  @include mq($until: large-desktop) {
+    width: 200px;
+  }
+
+  @include mq($until: desktop) {
+    display: none;
+  }
+}
+
+.app-pane__main-content {
+  -ms-flex: 1 1 100%; // sass-lint:disable-line no-duplicate-properties
+  -ms-flex-direction: column;
+  -webkit-box-direction: normal;
+  -webkit-box-flex: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  display: -ms-flexbox; // sass-lint:disable-line no-duplicate-properties
+  display: flex; // sass-lint:disable-line no-duplicate-properties
+  flex: 1 1 100%;
+  flex-direction: column;
+  min-width: 0;
+
+  @include mq($from: desktop) {
+    padding-left: nhsuk-spacing(9);
+  }
+}
+
+// Custom spacing for page headings
+@include mq($until: tablet) {
+  .app-page-heading,
+  .app-lede-text,
+  .app-contents-list,
+  .app-lede-text--sub {
+    margin-bottom: nhsuk-spacing(5);
+  }
+
+  .app-contents-list .nhsuk-contents-list__list {
+    margin-bottom: 0;
+  }
+}
+
+.code-snippet {
+  background-color: $color_nhsuk-grey-5;
+
+  .js-hidden {
+    display: none;
+  }
+
+  .app-link {
+    &--copy {
+      border-bottom-color: $nhsuk-button-color;
+      box-shadow: 0 2px 0 $nhsuk-button-color;
+      margin-bottom: 16px;
+      padding: 2px 8px;
+      position: absolute;
+      right: 16px;
+      text-transform: none;
+      top: 16px;
+
+      &:hover {
+        background-color: $color_nhsuk-grey-5;
+      }
+
+      &:focus {
+        @include nhsuk-focused-text;
+        border-color: $nhsuk-focus-color;
+      }
+    }
+
+    &--close {
+      background-color: transparent;
+      border: 0;
+      bottom: 16px;
+      color: $color_nhsuk-blue;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 16px;
+      position: static;
+      right: 16px;
+      text-decoration: underline;
+      z-index: 1;
+
+      &:hover {
+        color: $nhsuk-link-hover-color;
+        text-decoration: none;
+      }
+
+      &:focus {
+        @include nhsuk-focused-text;
+
+        &:hover {
+          color: $nhsuk-focus-text-color;
+        }
+      }
+
+      @include mq($from: tablet) {
+        bottom: 24px;
+        right: 24px;
+      }
+
+      svg {
+        fill: $color_nhsuk-blue;
+        height: 16px;
+        margin: 5px 5px 0 0;
+        transform: rotate(-90deg);
+        width: 16px;
+      }
+    }
+  }
+
+  &__preformatted {
+    align-items: flex-end;
+    border-bottom: 1px solid $color_nhsuk-grey-3;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+
+    @include mq($from: tablet) {
+      padding: 24px;
+    }
+  }
+}
+
+.app-tabs {
+  background: $color_nhsuk-white;
+  border: 1px solid $color_nhsuk-grey-3;
+  border-bottom: 0;
+  $root: &;
+  display: none;
+
+  @include mq($from: tablet) {
+    display: block;
+  }
+
+  &__item {
+    background-color: transparent;
+    margin: 0;
+
+    a {
+      border: 0;
+      font-weight: normal;
+      margin: 0;
+      padding: 8px 16px;
+      text-decoration: underline;
+
+      @include mq($from: tablet) {
+        padding: 12px 24px;
+      }
+
+      &:hover {
+        color: $nhsuk-link-hover-color;
+        outline: 0;
+        text-decoration: none;
+      }
+
+      &:focus {
+        background-color: $nhsuk-focus-color;
+        box-shadow: 0 $nhsuk-focus-width $nhsuk-focus-text-color;
+        color: $nhsuk-focus-text-color;
+        outline: $nhsuk-focus-width solid transparent;
+        text-decoration: none;
+      }
+    }
+
+    &--current {
+      a {
+        text-decoration: none;
+
+        @include mq($from: tablet) {
+          box-shadow: 0 $button-shadow-size 0 $color_nhsuk-blue;
+        }
+
+        &:hover {
+          color: $nhsuk-link-color;
+        }
+
+        &:focus {
+          &:hover {
+            color: $nhsuk-focus-text-color;
+          }
+        }
+      }
+    }
+
+    &--mobile {
+      background-color: $color_nhsuk-white;
+      border: 1px solid $color_nhsuk-grey-3;
+      border-width: 1px 0;
+      display: block;
+      margin: -1px 0;
+
+      @include mq($from: tablet) {
+        display: none;
+      }
+    }
+  }
+
+  &__container {
+    background-color: $color_nhsuk-white;
+    border: 1px solid $color_nhsuk-grey-3;
+    border-bottom: 0;
+    margin-top: 0;
+
+    pre {
+      align-self: stretch;
+      background-color: $color_nhsuk-white;
+      padding: 0;
+    }
+  }
+}
+
+// Highlight JS overrides
+
+$color-syntax--body: #28333b;
+$color-syntax--comment: #757575;
+$color-syntax--keyword: #990155;
+$color-syntax--var: #527a00;
+$color-syntax--string: #025eb8;
+$color-syntax--selector: #330072;
+
+.hljs {
+  background-color: $color_nhsuk-white;
+  color: $color-syntax--body;
+  overflow-x: scroll;
+  padding: 0;
+
+  @include mq($from: tablet) {
+    // Fixes issue with overflowing <code> el. 71.5vw = width of column. 121px = total width of padding/borders.
+    max-width: calc(71.5vw - 121px);
+  }
+
+  @include mq($from: 1024px) {
+    max-width: 586px;
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: $color-syntax--comment;
+    font-style: italic;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-subst {
+    color: $color-syntax--keyword;
+    font-weight: normal;
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-tag .hljs-attr {
+    //sass-lint:disable-line force-element-nesting
+    color: $color-syntax--var;
+  }
+
+  .hljs-string,
+  .hljs-doctag {
+    color: $color-syntax--string;
+  }
+
+  .hljs-title,
+  .hljs-section,
+  .hljs-selector-id {
+    color: $color-syntax--keyword;
+    font-weight: normal;
+  }
+
+  .hljs-subst {
+    font-weight: normal;
+  }
+
+  .hljs-type,
+  .hljs-class .hljs-title {
+    //sass-lint:disable-line force-element-nesting
+    color: $color-syntax--var;
+    font-weight: normal;
+  }
+
+  .hljs-tag,
+  .hljs-name,
+  .hljs-attribute {
+    color: $color-syntax--keyword;
+    font-weight: normal;
+  }
+
+  .hljs-regexp,
+  .hljs-link {
+    color: $color-syntax--var;
+  }
+
+  .hljs-symbol,
+  .hljs-bullet {
+    color: $color-syntax--keyword;
+  }
+
+  .hljs-built_in, //sass-lint:disable-line class-name-format
+  .hljs-builtin-name {
+    color: $color-syntax--string;
+  }
+
+  .hljs-meta {
+    color: $color-syntax--comment;
+    font-weight: normal;
+  }
+
+  // language specific customisations
+  &.html {
+    .hljs-tag {
+      color: $color-syntax--comment;
+    }
+  }
+
+  &.css {
+    .hljs-selector-class,
+    .hljs-selector-tag,
+    .hljs-keyword {
+      color: $color-syntax--selector;
+    }
+  }
+
+  &.javascript,
+  &.python {
+    .hljs-title,
+    .hljs-section,
+    .hljs-selector-id {
+      color: $color-syntax--string;
+    }
+  }
+
+  &.json {
+    .hljs-attr {
+      color: $color-syntax--keyword;
+    }
+  }
+}

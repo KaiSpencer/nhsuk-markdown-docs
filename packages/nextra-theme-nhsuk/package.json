@@ -1,0 +1,29 @@
+{
+  "name": "nextra-theme-nhsuk",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "scripts": {
+    "build": "echo 'Add build script here'",
+    "test": "echo 'Add test script here'",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "shiki": "0.14.4"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "react": "^18.2.0",
+    "nextra": "2.12.3",
+    "next": "13.4.19",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "next": ">=9.5.3",
+    "nextra": "*",
+    "react": ">=16.13.1",
+    "react-dom": ">=16.13.1"
+  }
+}

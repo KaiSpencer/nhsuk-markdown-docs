@@ -1,0 +1,31 @@
+import { getSourceCodeStaticProps, SourceCode } from "../../utils/source-code";
+import { StandardBreadcrumb } from "../../snippets/breadcrumb/standard";
+import { BreadcrumbOverrideAriaLabel } from "../../snippets/breadcrumb/override-aria-label";
+
+export const getStaticProps = () =>
+  getSourceCodeStaticProps([
+    "breadcrumb/standard.tsx",
+    "breadcrumb/override-aria-label.tsx",
+  ]);
+
+# Breadcrumb
+
+The Breadcrumb component contains two subcomponents: `Breadcrumb.Item` and `Breadcrumb.Back`. These are both anchor elements.
+
+The base Breadcrumb component has the default prop aria-label set to `Breadcrumb`. This is only a default prop and can be overridden.
+
+For more information view the [Service Manual page for this component](https://service-manual.nhs.uk/design-system/components/breadcrumbs).
+
+## Standard Usage
+
+<SourceCode
+  component={<StandardBreadcrumb />}
+  fileName="breadcrumb/standard.tsx"
+/>
+
+## Override aria-label
+
+<SourceCode
+  component={<BreadcrumbOverrideAriaLabel />}
+  fileName="breadcrumb/override-aria-label.tsx"
+/>

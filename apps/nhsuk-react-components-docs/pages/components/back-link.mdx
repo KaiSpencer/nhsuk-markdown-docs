@@ -1,0 +1,26 @@
+import { getSourceCodeStaticProps, SourceCode } from "../../utils/source-code";
+import { StandardBackLink } from "../../snippets/back-link/standard";
+import { BackLinkOpenInNewTab } from "../../snippets/back-link/new-tab";
+
+export const getStaticProps = () =>
+  getSourceCodeStaticProps(["back-link/standard.tsx", "back-link/new-tab.tsx"]);
+
+# Back Link
+
+Use back links to help users go back to the previous page in a multi-page transaction
+
+For more information view the [Service Manual page for this component](https://service-manual.nhs.uk/design-system/components/back-link).
+
+## Standard Link
+
+<SourceCode
+  component={<StandardBackLink />}
+  fileName="back-link/standard.tsx"
+/>
+
+## New Tab Link
+
+<SourceCode
+  component={<BackLinkOpenInNewTab />}
+  fileName="back-link/new-tab.tsx"
+/>

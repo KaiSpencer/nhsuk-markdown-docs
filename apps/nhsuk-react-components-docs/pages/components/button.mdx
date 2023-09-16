@@ -1,0 +1,28 @@
+import { getSourceCodeStaticProps, SourceCode } from "../../utils/source-code";
+import { PrimaryButton } from "../../snippets/button/primary";
+import { SecondaryButton } from "../../snippets/button/secondary";
+
+export function getStaticProps() {
+  return getSourceCodeStaticProps([
+    "button/primary.tsx",
+    "button/secondary.tsx",
+  ]);
+}
+
+# Button
+
+For more information view the [Service Manual page for this component](https://service-manual.nhs.uk/design-system/components/buttons).
+
+## Implementation Notes
+
+When importing Button from nhsuk-react-components, the ButtonWrapper component is imported. This will either render a standard `Button` or `ButtonLink` component depending on whether a `href` prop is supplied.
+
+If you want to use a specific component instead of the wrapper, you can supply the as="a" or as="button" props.
+
+### Primary
+
+<SourceCode component={<PrimaryButton />} fileName="button/primary.tsx" />
+
+### Secondary
+
+<SourceCode component={<SecondaryButton />} fileName="button/secondary.tsx" />

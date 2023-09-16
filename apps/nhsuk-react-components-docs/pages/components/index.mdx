@@ -1,0 +1,12 @@
+import { getSourceCodeStaticProps, SourceCode } from "../../utils/source-code";
+import { GetStartedButton } from "../../snippets/usage";
+
+export const getStaticProps = () => getSourceCodeStaticProps(["usage.tsx"]);
+
+# Components
+
+Components can be imported from the global module or directly from the component module itself, see the example below for more details.
+
+All available components can be found using the side navigation on the left.
+
+<SourceCode component={<GetStartedButton />} fileName="usage.tsx" />

@@ -1,0 +1,23 @@
+import { getSourceCodeStaticProps, SourceCode } from "../../utils/source-code";
+import { StandardActionLink } from "../../snippets/action-link/standard";
+import { ActionLinkOpenInNewTab } from "../../snippets/action-link/new-tab";
+
+export const STANDARD = "action-link/standard.tsx";
+export const NEW_TAB = "action-link/new-tab.tsx";
+
+export const getStaticProps = () =>
+  getSourceCodeStaticProps([STANDARD, NEW_TAB]);
+
+# Action Link
+
+Use action links to help users get to the next stage of a journey quickly by signposting the start of a digital service.
+
+For more information view the [Service Manual page for this component](https://service-manual.nhs.uk/design-system/components/action-link).
+
+# Standard
+
+<SourceCode component={<StandardActionLink />} fileName={STANDARD} />
+
+# Open link in a new tab
+
+<SourceCode component={<ActionLinkOpenInNewTab />} fileName={NEW_TAB} />
