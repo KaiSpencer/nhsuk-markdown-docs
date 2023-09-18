@@ -27,3 +27,39 @@ Install dependencies from the project root with:
 ```bash
 bun install
 ```
+
+## Repo layout
+
+This repo is a monorepo managed with [Turborepo](https://turbo.build/repo), comprising of apps and packages.
+
+### Apps
+
+Web applications live in the `/apps` directory
+
+#### docs
+
+The documentation site lives in `/apps/docs`
+
+This is a living example of `nhsuk-markdown-docs` in action.
+
+#### nhsuk-react-component-docs
+
+Experimental docs for [nhsuk-react-components](https://github.com/NHSDigital/nhsuk-react-components) live in `/apps/nhsuk-react-component-docs`
+
+These will be moved to their own repo in the future when the first stable release of `nhsuk-markdown-docs` is ready.
+
+### Packages
+
+Packages live in the `/packages` directory
+
+#### nextra-theme-nhsuk
+
+This is the main package that contains the NHSUK theme for Nextra.
+
+#### eslint-config-custom
+
+This is a custom eslint config that is used across all packages and apps.
+
+#### tsconfig
+
+This is a custom tsconfig that is used across all packages and apps.
