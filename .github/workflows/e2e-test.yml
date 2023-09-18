@@ -9,11 +9,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Deps
-        run: npm i
+        run: pnpm i
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm run test:ci
+          start: pnpm run test:ci
           working-directory: ./apps/docs
