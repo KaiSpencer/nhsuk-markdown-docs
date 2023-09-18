@@ -6,15 +6,14 @@ jobs:
   cypress-e2e:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Deps
+        run: npm i
 
-      # -y to output yarn.lock file as cypress-io/github-action@v6 doesnt support bun
-      # https://github.com/cypress-io/github-action/issues/585
-      - run: bun install -y 
-        
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: bun test:ci
+          start: npm run test:ci
           working-directory: ./apps/docs
