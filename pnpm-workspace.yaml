@@ -1,0 +1,5 @@
+# Until cypress action supports bun, use pnpm :(
+
+packages:
+  - 'packages/*'
+  - 'apps/*'   
