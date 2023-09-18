@@ -1,8 +1,13 @@
 import Head from "next/head";
 import { MDXProvider } from "nextra/mdx";
 import type { HTMLProps } from "react";
-import type { NextraThemeLayoutProps, PageOpts } from "nextra";
+import type { MetaJsonFile, PageOpts } from "nextra";
+import type { ThemeConfig } from "..";
 import { SideNav } from "./sidenav";
+import {
+  mapPageNameFromMetaJson,
+  rootPagesAndFoldersFromPageOpts,
+} from "./utils";
 
 const components = {
   pre: (
@@ -45,11 +50,17 @@ const components = {
 
 function Layout({
   pageOpts,
+  themeConfig,
   children,
 }: {
   pageOpts: PageOpts;
+  themeConfig: ThemeConfig;
   children: React.ReactNode;
 }): JSX.Element {
+  const rootPagesAndFolders = rootPagesAndFoldersFromPageOpts(pageOpts);
+  const rootMeta = pageOpts.pageMap.find((p) => p.kind === "Meta") as
+    | MetaJsonFile
+    | undefined;
   return (
     <>
       <Head>
@@ -84,7 +95,7 @@ function Layout({
                 </svg>
 
                 <span className="nhsuk-header__service-name">
-                  NHSUK React Components
+                  {themeConfig.headerName}
                 </span>
               </a>
             </div>
@@ -133,6 +144,7 @@ function Layout({
                   <span className="nhsuk-u-visually-hidden">Close menu</span>
                 </button>
               </p>
+
               <ul className="nhsuk-header__navigation-list">
                 <li className="nhsuk-header__navigation-item nhsuk-header__navigation-item--for-mobile">
                   <a className="nhsuk-header__navigation-link" href="/">
@@ -149,60 +161,31 @@ function Layout({
                     </svg>
                   </a>
                 </li>
-                <li className="nhsuk-header__navigation-item">
-                  <a
-                    className="nhsuk-header__navigation-link"
-                    href="/installation"
+                {rootPagesAndFolders.map((pageOrFolder) => (
+                  <li
+                    className="nhsuk-header__navigation-item"
+                    key={pageOrFolder.route}
                   >
-                    Installation
-                    <svg
-                      aria-hidden="true"
-                      className="nhsuk-icon nhsuk-icon__chevron-right"
-                      height="34"
-                      viewBox="0 0 24 24"
-                      width="34"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <a
+                      className="nhsuk-header__navigation-link"
+                      href={pageOrFolder.route}
                     >
-                      <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z" />
-                    </svg>
-                  </a>
-                </li>
-                <li className="nhsuk-header__navigation-item">
-                  <a
-                    className="nhsuk-header__navigation-link"
-                    href="/components"
-                  >
-                    Components
-                    <svg
-                      aria-hidden="true"
-                      className="nhsuk-icon nhsuk-icon__chevron-right"
-                      height="34"
-                      viewBox="0 0 24 24"
-                      width="34"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z" />
-                    </svg>
-                  </a>
-                </li>
-                <li className="nhsuk-header__navigation-item">
-                  <a
-                    className="nhsuk-header__navigation-link"
-                    href="/migration-guides"
-                  >
-                    Migration Guides
-                    <svg
-                      aria-hidden="true"
-                      className="nhsuk-icon nhsuk-icon__chevron-right"
-                      height="34"
-                      viewBox="0 0 24 24"
-                      width="34"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z" />
-                    </svg>
-                  </a>
-                </li>
+                      {rootMeta
+                        ? mapPageNameFromMetaJson(rootMeta, pageOrFolder.name)
+                        : pageOrFolder.name}
+                      <svg
+                        aria-hidden="true"
+                        className="nhsuk-icon nhsuk-icon__chevron-right"
+                        height="34"
+                        viewBox="0 0 24 24"
+                        width="34"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z" />
+                      </svg>
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </nav>
@@ -235,7 +218,7 @@ function Layout({
               <p className="nhsuk-footer__copyright">&copy; Crown copyright</p>
             </div>
           </div>
-        </footer>{" "}
+        </footer>
       </div>
     </>
   );
@@ -243,7 +226,23 @@ function Layout({
 
 export function NextraThemeNhsuk({
   pageOpts,
+  themeConfig,
   children,
-}: NextraThemeLayoutProps): JSX.Element {
-  return <Layout pageOpts={pageOpts}>{children}</Layout>;
+}: {
+  pageOpts: PageOpts;
+  themeConfig: ThemeConfig;
+  children: React.ReactNode;
+}): JSX.Element {
+  // TODO use zod to validate themeConfig
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- This may not be passed in
+  if (themeConfig.headerLinks === undefined)
+    throw new Error("themeConfig.headerLinks is undefined");
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- This may not be passed in
+  if (themeConfig.headerName === undefined)
+    throw new Error("themeConfig.headerName is undefined");
+  return (
+    <Layout pageOpts={pageOpts} themeConfig={themeConfig}>
+      {children}
+    </Layout>
+  );
 }

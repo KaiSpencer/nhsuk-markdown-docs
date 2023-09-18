@@ -1,0 +1,38 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "start-server-and-test dev http://localhost:3000 cy:open",
+    "test:ci": "start-server-and-test dev http://localhost:3000 cy:run",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "dependencies": {
+    "@mdx-js/react": "^2.2.1",
+    "next": "^13.1.1",
+    "nextra": "^2.12.3",
+    "nhsuk-frontend": "^4.1.0",
+    "nhsuk-react-components": "^2.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.60.0",
+    "nextra-theme-nhsuk": "workspace:*"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "13.4.19",
+    "@types/node": "20.5.0",
+    "@types/react": "^18.2.7",
+    "bun-types": "^1.0.1",
+    "cypress": "^13.2.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.0.4",
+    "start-server-and-test": "^2.0.0",
+    "@testing-library/cypress": "^10.0.1",
+    "eslint-plugin-testing-library": "^6.0.1"
+  }
+}

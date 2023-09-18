@@ -1,0 +1,22 @@
+name: Cypress E2E
+
+on: pull_request
+
+jobs:
+  cypress-e2e:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+
+      - run: bun install
+        
+      - name: Cypress install 
+        run: bun run cypress install
+
+      - name: Cypress verify
+        run: bun run cypress verify
+
+      - name: Cypress E2E
+        run: bun run test:ci
+        working-directory: ./apps/docs
