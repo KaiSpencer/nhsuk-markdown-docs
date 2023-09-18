@@ -17,7 +17,7 @@ jobs:
       - name: Cypress verify
         run: bun run cypress verify
 
-      - name: Cypress run e2e
+      - name: Cypress E2E
         run: bun run test:ci
         with:
           working-directory: ./apps/docs
