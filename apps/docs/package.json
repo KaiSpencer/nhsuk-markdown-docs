@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "start-server-and-test dev http://localhost:3000 cy:open",
-    "test:ci": "start-server-and-test dev http://localhost:300 cy:run",
+    "test:ci": "start-server-and-test dev http://localhost:3000 cy:run",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
