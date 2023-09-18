@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { MDXProvider } from "nextra/mdx";
 import type { HTMLProps } from "react";
-import type { PageOpts } from "nextra";
+import type { MetaJsonFile, PageOpts } from "nextra";
 import type { ThemeConfig } from "..";
 import { SideNav } from "./sidenav";
 import {
@@ -57,9 +57,10 @@ function Layout({
   themeConfig: ThemeConfig;
   children: React.ReactNode;
 }): JSX.Element {
-  console.log("themeConfig", themeConfig);
   const rootPagesAndFolders = rootPagesAndFoldersFromPageOpts(pageOpts);
-  const rootMeta = pageOpts.pageMap.find((p) => p.kind === "Meta");
+  const rootMeta = pageOpts.pageMap.find((p) => p.kind === "Meta") as
+    | MetaJsonFile
+    | undefined;
   return (
     <>
       <Head>
