@@ -1,5 +1,5 @@
-describe("template spec", () => {
-  it("passes", () => {
+describe("Smoke", () => {
+  it("home page content", () => {
     cy.visit("http://localhost:3000");
     cy.findByRole("heading", { level: 1 }).should(
       "have.text",
