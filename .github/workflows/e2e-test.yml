@@ -19,3 +19,5 @@ jobs:
 
       - name: Cypress run e2e
         run: bun run test:ci
+        with:
+          working-directory: ./apps/docs
