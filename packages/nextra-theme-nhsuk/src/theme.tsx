@@ -7,13 +7,14 @@ import { SideNav } from "./sidenav";
 import {
   mapPageNameFromMetaJson,
   rootPagesAndFoldersFromPageOpts,
+  sortRootPagesAndFolders,
 } from "./utils";
 
 const components = {
   pre: (
     props: HTMLProps<HTMLPreElement> & {
       filename?: string;
-    }
+    },
   ) => {
     return (
       <pre
@@ -61,6 +62,10 @@ function Layout({
   const rootMeta = pageOpts.pageMap.find((p) => p.kind === "Meta") as
     | MetaJsonFile
     | undefined;
+  const sortedRootPagesAndFolders = sortRootPagesAndFolders(
+    rootPagesAndFolders,
+    rootMeta,
+  );
   return (
     <>
       <Head>
@@ -161,7 +166,7 @@ function Layout({
                     </svg>
                   </a>
                 </li>
-                {rootPagesAndFolders.map((pageOrFolder) => (
+                {sortedRootPagesAndFolders.map((pageOrFolder) => (
                   <li
                     className="nhsuk-header__navigation-item"
                     key={pageOrFolder.route}
@@ -234,9 +239,6 @@ export function NextraThemeNhsuk({
   children: React.ReactNode;
 }): JSX.Element {
   // TODO use zod to validate themeConfig
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- This may not be passed in
-  if (themeConfig.headerLinks === undefined)
-    throw new Error("themeConfig.headerLinks is undefined");
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- This may not be passed in
   if (themeConfig.headerName === undefined)
     throw new Error("themeConfig.headerName is undefined");
