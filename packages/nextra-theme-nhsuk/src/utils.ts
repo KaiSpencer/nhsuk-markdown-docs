@@ -3,7 +3,7 @@ import type { MetaJsonFile, PageMapItem, PageOpts } from "nextra";
 export function rootPagesAndFoldersFromPageOpts(
   pageOpts: PageOpts,
 ): Exclude<PageMapItem, { kind: "Meta" }>[] {
-  const rootPagesAndFolders = [];
+  const rootPagesAndFolders: Exclude<PageMapItem, { kind: "Meta" }>[] = [];
   for (const page of pageOpts.pageMap) {
     if (page.kind !== "Meta") {
       rootPagesAndFolders.push(page);
